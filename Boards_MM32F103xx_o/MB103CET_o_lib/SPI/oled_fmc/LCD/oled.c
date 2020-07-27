@@ -274,12 +274,19 @@ void OLED_Init(void)
 	GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_Init(GPIOD, &GPIO_InitStructure);
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
   
-  GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_Init(GPIOE, &GPIO_InitStructure);
+   GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
+   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+   GPIO_Init(GPIOE, &GPIO_InitStructure);
+   
+   GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_4;
+   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+   GPIO_Init(GPIOE, &GPIO_InitStructure);
+  
+   GPIO_SetBits(GPIOE,GPIO_Pin_4);
 #else					//使用4线SPI 串口模式
 	GPIOB->CRL&=0XFFFFFF00;
 	GPIOB->CRL|=0XF0000033;

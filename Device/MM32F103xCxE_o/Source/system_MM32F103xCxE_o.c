@@ -89,10 +89,10 @@ If you are using different crystal you have to adapt those functions accordingly
 
 //Max Freq is 144000000
 //#define SYSCLK_FREQ_XXMHz  72000000L
-#define SYSCLK_FREQ_XXMHz  96000000L
+//#define SYSCLK_FREQ_XXMHz  96000000L
 //#define SYSCLK_FREQ_XXMHz  48000000L
 //#define SYSCLK_HSI_XXMHz   144000000L
-//#define SYSCLK_HSI_XXMHz   96000000L
+#define SYSCLK_HSI_XXMHz   96000000L
 //#define SYSCLK_HSI_XXMHz   48000000L
 /*!< Uncomment the following line if you need to relocate your vector Table in
 Internal SRAM. */

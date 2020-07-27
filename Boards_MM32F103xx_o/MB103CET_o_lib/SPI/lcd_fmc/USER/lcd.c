@@ -632,7 +632,7 @@ void GPIO_ConfigInit(void)
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource1,GPIO_AF_12);
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource2,GPIO_AF_12);
 //	GPIO_PinAFConfig(GPIOE,GPIO_PinSource3,GPIO_AF_12);
-	GPIO_PinAFConfig(GPIOE,GPIO_PinSource4,GPIO_AF_12);
+//	GPIO_PinAFConfig(GPIOE,GPIO_PinSource4,GPIO_AF_12);
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource5,GPIO_AF_12);
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource6,GPIO_AF_12);
 	GPIO_PinAFConfig(GPIOE,GPIO_PinSource7,GPIO_AF_12);
@@ -648,13 +648,19 @@ void GPIO_ConfigInit(void)
 	GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_Init(GPIOD, &GPIO_InitStructure);
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+    GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOE, &GPIO_InitStructure);
+    
+    GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_4|GPIO_Pin_3;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOE, &GPIO_InitStructure);
   
-  GPIO_InitStructure.GPIO_Pin  =  GPIO_Pin_All;
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_Init(GPIOE, &GPIO_InitStructure);
-	
+    GPIO_SetBits(GPIOE,GPIO_Pin_4);
       
 }
 void FSMC_Init(void)
@@ -662,7 +668,7 @@ void FSMC_Init(void)
 
 	//  tBTA[18:16]  tWP[15:10] tWR[9:8] tAS[7:6] tRC[5:0]
 	//FSMC->SMTMGR_SET0 = 0x3<<16|0x3<<10|0x3<<8|0x3<<6|0x3<<0;    //时间设置
-    FSMC->SMTMGR_SET0 = 0x0<<16|0x10<<10|0x1<<8|0x1<<6|0x1<<0;
+    FSMC->SMTMGR_SET0 = 0x0<<16|0x3<<10|0x1<<8|0x1<<6|0x1<<0;
 //	*((volatile unsigned int*)0x40010000) &= 0xffffffff; 
 //	 *((volatile unsigned int*)0x40010000) = (0x2<<29);  //moto680
 	*((volatile unsigned int*)0x40010000) = (0x1<<29); //TK80        //模式设置
@@ -697,12 +703,12 @@ void LCD_Init(void)
     FSMC_Init();
     GPIO_ConfigInit();
     
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;				 //PB0 推挽输出 背光
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
- 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
- 	GPIO_Init(GPIOE, &GPIO_InitStructure);
-	
-    GPIO_SetBits(GPIOE,GPIO_Pin_3);	
+//    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;				 //PB0 推挽输出 背光
+// 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+// 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+// 	GPIO_Init(GPIOE, &GPIO_InitStructure);
+//	
+//    GPIO_SetBits(GPIOE,GPIO_Pin_3);	
     
 	delay_ms(50); 					// delay 50 ms 
   	lcddev.id=LCD_ReadReg(0x0000);	//读ID（9320/9325/9328/4531/4535等IC）   
@@ -805,7 +811,8 @@ void LCD_Init(void)
 	}
 	LCD_Display_Dir(0);		//默认为竖屏
 	//LCD_LED=1;				//点亮背光
-    GPIO_SetBits(GPIOC,GPIO_Pin_10);
+  //  GPIO_SetBits(GPIOC,GPIO_Pin_10);
+    GPIO_SetBits(GPIOE,GPIO_Pin_3);
 	LCD_Clear(WHITE);
 }  
 //清屏函数

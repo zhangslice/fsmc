@@ -1426,7 +1426,7 @@ typedef struct
 #define USB_OTG_FS          ((USB_OTG_FS_TypeDef *) USB_OTG_FS_BASE)
 #define AES                 ((AES_TypeDef *) AES_BASE)
 #define TRNG                ((TRNG_TypeDef *) TRNG_BASE)
-#define FSMC                ((FSMC_TypeDef *) FSMC_BASE)   
+//#define FSMC                ((FSMC_TypeDef *) FSMC_BASE)   
 #define QSPI                ((QSPI_TypeDef *) QSPI_R_BASE)  
 
 #define OB                  ((OB_TypeDef *) OB_BASE) 
